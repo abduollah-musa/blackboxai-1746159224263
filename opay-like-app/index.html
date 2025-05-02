@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Opay-like App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-semibold text-indigo-600">Opay-like App</h1>
+    <nav>
+      <ul class="flex space-x-4 text-gray-700">
+        <li><a href="#" id="nav-login" class="hover:text-indigo-600">Login</a></li>
+        <li><a href="#" id="nav-register" class="hover:text-indigo-600">Register</a></li>
+        <li><a href="#" id="nav-dashboard" class="hover:text-indigo-600 hidden">Dashboard</a></li>
+        <li><a href="#" id="nav-logout" class="hover:text-indigo-600 hidden">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto p-4">
+    <!-- Login Form -->
+    <section id="login-section" class="max-w-md mx-auto bg-white p-6 rounded shadow">
+      <h2 class="text-2xl font-semibold mb-4">Login</h2>
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label for="login-email" class="block mb-1 font-medium">Email</label>
+          <input type="email" id="login-email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div>
+          <label for="login-password" class="block mb-1 font-medium">Password</label>
+          <input type="password" id="login-password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Login</button>
+      </form>
+    </section>
+
+    <!-- Register Form -->
+    <section id="register-section" class="max-w-md mx-auto bg-white p-6 rounded shadow hidden">
+      <h2 class="text-2xl font-semibold mb-4">Register</h2>
+      <form id="register-form" class="space-y-4">
+        <div>
+          <label for="register-name" class="block mb-1 font-medium">Full Name</label>
+          <input type="text" id="register-name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div>
+          <label for="register-email" class="block mb-1 font-medium">Email</label>
+          <input type="email" id="register-email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div>
+          <label for="register-password" class="block mb-1 font-medium">Password</label>
+          <input type="password" id="register-password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Register</button>
+      </form>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard-section" class="hidden max-w-4xl mx-auto bg-white p-6 rounded shadow">
+      <h2 class="text-2xl font-semibold mb-6">Dashboard</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Wallet -->
+        <div class="bg-indigo-50 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold mb-2">Wallet</h3>
+          <p class="text-3xl font-bold" id="wallet-balance">$0.00</p>
+          <button id="add-funds-btn" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Add Funds</button>
+        </div>
+        <!-- Transfer -->
+        <div class="bg-indigo-50 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold mb-2">Transfer Money</h3>
+          <form id="transfer-form" class="space-y-3">
+            <input type="email" id="transfer-email" placeholder="Recipient Email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <input type="number" id="transfer-amount" placeholder="Amount" min="1" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Send</button>
+          </form>
+        </div>
+        <!-- Bill Payment -->
+        <div class="bg-indigo-50 p-4 rounded shadow">
+          <h3 class="text-lg font-semibold mb-2">Bill Payment</h3>
+          <form id="billpay-form" class="space-y-3">
+            <input type="text" id="billpay-biller" placeholder="Biller Name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <input type="number" id="billpay-amount" placeholder="Amount" min="1" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Pay</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Transaction History -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-2">Transaction History</h3>
+        <ul id="transaction-history" class="divide-y divide-gray-200 max-h-64 overflow-y-auto">
+          <!-- Transactions will be appended here -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- Add Funds Modal -->
+    <div id="add-funds-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+      <div class="bg-white p-6 rounded shadow max-w-sm w-full">
+        <h3 class="text-xl font-semibold mb-4">Add Funds</h3>
+        <form id="add-funds-form" class="space-y-4">
+          <input type="number" id="add-funds-amount" placeholder="Amount" min="1" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Add</button>
+          <button type="button" id="add-funds-cancel" class="mt-2 w-full border border-gray-300 rounded py-2 hover:bg-gray-100 transition">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Simple in-memory user data and session simulation
+    let users = [];
+    let currentUser = null;
+    let transactions = [];
+
+    // DOM elements
+    const loginSection = document.getElementById('login-section');
+    const registerSection = document.getElementById('register-section');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const navLogin = document.getElementById('nav-login');
+    const navRegister = document.getElementById('nav-register');
+    const navDashboard = document.getElementById('nav-dashboard');
+    const navLogout = document.getElementById('nav-logout');
+    const walletBalance = document.getElementById('wallet-balance');
+    const transactionHistory = document.getElementById('transaction-history');
+    const addFundsModal = document.getElementById('add-funds-modal');
+    const addFundsForm = document.getElementById('add-funds-form');
+    const addFundsCancel = document.getElementById('add-funds-cancel');
+
+    // Navigation handlers
+    navLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection('login');
+    });
+    navRegister.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection('register');
+    });
+    navDashboard.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection('dashboard');
+    });
+    navLogout.addEventListener('click', (e) => {
+      e.preventDefault();
+      logoutUser();
+    });
+
+    // Show section function
+    function showSection(section) {
+      loginSection.classList.add('hidden');
+      registerSection.classList.add('hidden');
+      dashboardSection.classList.add('hidden');
+      navLogin.classList.remove('hidden');
+      navRegister.classList.remove('hidden');
+      navDashboard.classList.add('hidden');
+      navLogout.classList.add('hidden');
+
+      if (section === 'login') {
+        loginSection.classList.remove('hidden');
+      } else if (section === 'register') {
+        registerSection.classList.remove('hidden');
+      } else if (section === 'dashboard') {
+        dashboardSection.classList.remove('hidden');
+        navDashboard.classList.remove('hidden');
+        navLogout.classList.remove('hidden');
+        navLogin.classList.add('hidden');
+        navRegister.classList.add('hidden');
+        updateDashboard();
+      }
+    }
+
+    // Register form submit
+    document.getElementById('register-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('register-name').value.trim();
+      const email = document.getElementById('register-email').value.trim().toLowerCase();
+      const password = document.getElementById('register-password').value;
+      if (users.find(u => u.email === email)) {
+        alert('User with this email already exists.');
+        return;
+      }
+      users.push({ name, email, password, balance: 0 });
+      alert('Registration successful. Please login.');
+      showSection('login');
+      e.target.reset();
+    });
+
+    // Login form submit
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim().toLowerCase();
+      const password = document.getElementById('login-password').value;
+      const user = users.find(u => u.email === email && u.password === password);
+      if (!user) {
+        alert('Invalid email or password.');
+        return;
+      }
+      currentUser = user;
+      showSection('dashboard');
+      e.target.reset();
+    });
+
+    // Logout function
+    function logoutUser() {
+      currentUser = null;
+      showSection('login');
+    }
+
+    // Update dashboard info
+    function updateDashboard() {
+      if (!currentUser) return;
+      walletBalance.textContent = `$${currentUser.balance.toFixed(2)}`;
+      renderTransactions();
+    }
+
+    // Add funds modal handlers
+    document.getElementById('add-funds-btn').addEventListener('click', () => {
+      addFundsModal.classList.remove('hidden');
+    });
+    addFundsCancel.addEventListener('click', () => {
+      addFundsModal.classList.add('hidden');
+      addFundsForm.reset();
+    });
+    addFundsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('add-funds-amount').value);
+      if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount.');
+        return;
+      }
+      currentUser.balance += amount;
+      transactions.push({ type: 'Add Funds', amount, date: new Date(), user: currentUser.email });
+      updateDashboard();
+      addFundsModal.classList.add('hidden');
+      addFundsForm.reset();
+      alert('Funds added successfully.');
+    });
+
+    // Transfer form submit
+    document.getElementById('transfer-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const recipientEmail = document.getElementById('transfer-email').value.trim().toLowerCase();
+      const amount = parseFloat(document.getElementById('transfer-amount').value);
+      if (!recipientEmail || isNaN(amount) || amount <= 0) {
+        alert('Please enter valid recipient and amount.');
+        return;
+      }
+      if (!currentUser) {
+        alert('Please login first.');
+        return;
+      }
+      if (currentUser.balance < amount) {
+        alert('Insufficient balance.');
+        return;
+      }
+      const recipient = users.find(u => u.email === recipientEmail);
+      if (!recipient) {
+        alert('Recipient not found.');
+        return;
+      }
+      currentUser.balance -= amount;
+      recipient.balance += amount;
+      transactions.push({ type: 'Transfer', amount, date: new Date(), user: currentUser.email, recipient: recipientEmail });
+      updateDashboard();
+      e.target.reset();
+      alert('Transfer successful.');
+    });
+
+    // Bill payment form submit
+    document.getElementById('billpay-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const biller = document.getElementById('billpay-biller').value.trim();
+      const amount = parseFloat(document.getElementById('billpay-amount').value);
+      if (!biller || isNaN(amount) || amount <= 0) {
+        alert('Please enter valid biller and amount.');
+        return;
+      }
+      if (!currentUser) {
+        alert('Please login first.');
+        return;
+      }
+      if (currentUser.balance < amount) {
+        alert('Insufficient balance.');
+        return;
+      }
+      currentUser.balance -= amount;
+      transactions.push({ type: 'Bill Payment', amount, date: new Date(), user: currentUser.email, biller });
+      updateDashboard();
+      e.target.reset();
+      alert('Bill payment successful.');
+    });
+
+    // Render transaction history
+    function renderTransactions() {
+      transactionHistory.innerHTML = '';
+      const userTransactions = transactions.filter(t => t.user === currentUser.email);
+      if (userTransactions.length === 0) {
+        transactionHistory.innerHTML = '<li class="py-2 text-gray-500">No transactions yet.</li>';
+        return;
+      }
+      userTransactions.sort((a, b) => b.date - a.date);
+      userTransactions.forEach(t => {
+        const li = document.createElement('li');
+        li.className = 'py-2 flex justify-between items-center';
+        let description = '';
+        if (t.type === 'Add Funds') {
+          description = `Added funds: $${t.amount.toFixed(2)}`;
+        } else if (t.type === 'Transfer') {
+          description = `Transferred $${t.amount.toFixed(2)} to ${t.recipient}`;
+        } else if (t.type === 'Bill Payment') {
+          description = `Paid $${t.amount.toFixed(2)} to ${t.biller}`;
+        }
+        const date = new Date(t.date);
+        li.innerHTML = `
+          <span>${description}</span>
+          <span class="text-sm text-gray-500">${date.toLocaleString()}</span>
+        `;
+        transactionHistory.appendChild(li);
+      });
+    }
+
+    // Initialize app
+    showSection('login');
+  </script>
+</body>
+</html>
